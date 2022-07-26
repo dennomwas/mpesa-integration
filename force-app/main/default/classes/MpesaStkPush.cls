@@ -35,20 +35,21 @@ public with sharing class MpesaStkPush {
     // push mpesa payment to customer
     public static void tillNumberPayment(Double amountToPay, String customerPhoneNumber) { 
         Long customerNumber        = Long.valueOf(customerPhoneNumber); 
-        String accountReference    = 'MWAS MADE THIS'; //TODO: Add item being paid for 
-        String transactionDesc     = 'Test'; //TODO: Add unique identifier desc for the item being paid for
+        String accountReference    = 'MWAS MADE THIS'; //TODO: Add name e.g Company name to be displayed on the STK Push request on phone.
+        String transactionDesc     = 'Test'; //TODO: Add unique identifier e.g. recordId for the item being paid for
         
-        MpesaStkPush reqBody = new MpesaStkPush(BUSINESS_TILL_NUMBER, 
-                                                encodedPassKey(), 
-                                                getTimeStamp(), 
-                                                TRANSACTION_TYPE, 
+        MpesaStkPush reqBody = new MpesaStkPush(BUSINESS_TILL_NUMBER,
+                                                encodedPassKey(),
+                                                getTimeStamp(),
+                                                TRANSACTION_TYPE,
                                                 amountToPay,
-                                                customerNumber, 
-                                                BUSINESS_TILL_NUMBER, 
-                                                customerNumber, 
-                                                CALL_BACK_URL, 
+                                                customerNumber,
+                                                BUSINESS_TILL_NUMBER,
+                                                customerNumber,
+                                                CALL_BACK_URL,
                                                 accountReference,
                                                 transactionDesc);
+        // make the http request
         Http http = new Http();
         HttpRequest req = new HttpRequest();
         req.setMethod('POST');
