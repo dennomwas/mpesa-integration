@@ -33,10 +33,18 @@ public with sharing class MpesaStkPush {
     }
 
     // push mpesa payment to customer
-    public static void tillNumberPayment(Double amountToPay, String customerPhoneNumber) { 
-        Long customerNumber        = Long.valueOf(customerPhoneNumber); 
+    public static void tillNumberPayment(String recordId) { 
+        Opportunity oppty = [SELECT Id, 
+                                    Amount, 
+                                    Phone_Number__c 
+                            FROM Opportunity 
+                            WHERE Id =:recordId 
+                            LIMIT 1];
+
+        Long customerNumber        = Long.valueOf(oppty.Phone_Number__c); 
+        Double amountToPay         = Double.valueOf(oppty.Amount);
         String accountReference    = 'MWAS MADE THIS'; //TODO: Add name e.g Company name to be displayed on the STK Push request on phone.
-        String transactionDesc     = 'Test'; //TODO: Add unique identifier e.g. recordId for the item being paid for
+        String transactionDesc     = oppty.Id; //TODO: Add unique identifier e.g. recordId for the item being paid for
         
         MpesaStkPush reqBody = new MpesaStkPush(BUSINESS_TILL_NUMBER,
                                                 encodedPassKey(),
