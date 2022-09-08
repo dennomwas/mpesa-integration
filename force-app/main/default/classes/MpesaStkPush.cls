@@ -41,10 +41,10 @@ public with sharing class MpesaStkPush {
                             WHERE Id =:recordId 
                             LIMIT 1];
 
-        Long customerNumber        = Long.valueOf(oppty.Phone_Number__c); 
-        Double amountToPay         = Double.valueOf(oppty.Amount);
-        String accountReference    = 'MWAS MADE THIS'; //TODO: Add name e.g Company name to be displayed on the STK Push request on phone.
-        String transactionDesc     = oppty.Id; //TODO: Add unique identifier e.g. recordId for the item being paid for
+        Long customerNumber     = Long.valueOf(oppty.Phone_Number__c); 
+        Double amountToPay      = Double.valueOf(oppty.Amount);
+        String accountReference = 'MWAS MADE THIS'; //TODO: Add name e.g Company name to be displayed on the STK Push request on phone.
+        String transactionDesc  = oppty.Id; //TODO: Add unique identifier e.g. recordId for the item being paid for
         
         MpesaStkPush reqBody = new MpesaStkPush(BUSINESS_TILL_NUMBER,
                                                 encodedPassKey(),
@@ -79,16 +79,16 @@ public with sharing class MpesaStkPush {
     }
     // Constructor for STK Push payload
     public MpesaStkPush(Integer businessShortCode,
-                        String password,
-                        String timestamp,
-                        String transactionType,
-                        Double amount,
-                        Long partyA,
+                        String  password,
+                        String  timestamp,
+                        String  transactionType,
+                        Double  amount,
+                        Long    partyA,
                         Integer partyB,
-                        Long phoneNumber,
-                        String callBackURL,
-                        String accountReference,
-                        String transactionDesc) {
+                        Long    phoneNumber,
+                        String  callBackURL,
+                        String  accountReference,
+                        String  transactionDesc) {
         this.businessShortCode = BusinessShortCode;
         this.password          = Password;
         this.timestamp         = Timestamp;
